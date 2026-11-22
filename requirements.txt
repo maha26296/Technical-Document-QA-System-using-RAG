@@ -6,3 +6,6 @@ numpy
 ollama
 datasets
 pandas
+streamlit
+fastapi
+uvicorn

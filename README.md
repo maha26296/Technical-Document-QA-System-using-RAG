@@ -21,29 +21,94 @@ It is designed to provide accurate, document-grounded responses while reducing u
 - Fully local RAG pipeline without paid LLM APIs.
 
 
-## Research Documents
 
-This project uses the following two research papers as its knowledge source.
+## Research Documents
 
 ### 1. BEIR: A Heterogeneous Benchmark for Zero-shot Evaluation of Information Retrieval Models
 
-- **Document:** BEIR_Research_Paper.pdf
-- **Objective:** To introduce a benchmark for evaluating information retrieval models across diverse retrieval tasks, particularly in zero-shot settings.
-- **Focus:** Information retrieval, benchmarking, and zero-shot evaluation.
-- **Key takeaway:** Retrieval models should be evaluated across diverse datasets and tasks rather than relying on a single dataset.
+**Authors:** Nandan Thakur, Nils Reimers, Andreas Rücklé, Abhishek Srivastava, and Iryna Gurevych.
+
+**Research Paper:** https://arxiv.org/abs/2104.08663
+
+**Objective:**
+
+The main objective of BEIR is to provide a common benchmark for evaluating information retrieval models across different domains and retrieval tasks. It focuses on testing how well models perform on datasets they were not specifically trained on (zero-shot evaluation).
+
+**Methodology:**
+
+- Selected 18 publicly available datasets covering 9 different information retrieval tasks.
+- Evaluated 10 retrieval systems.
+- Compared lexical, sparse, dense, late-interaction, and re-ranking approaches.
+- Studied how well retrieval models generalize across different domains.
+
+**Key Parameters and Setup:**
+
+- Benchmark datasets: 18
+- Retrieval tasks: 9
+- Retrieval systems: 10
+- Evaluation approach: Zero-shot evaluation
+- Training reference dataset: MS MARCO for several retrieval models.
+
+**Authors' Conclusions:**
+
+The authors concluded that BM25 is a strong and robust baseline. Re-ranking and late-interaction models generally achieve better average zero-shot retrieval performance, but require higher computational resources. Dense and sparse retrieval models are more computationally efficient but may perform worse on some out-of-domain tasks.
+
+**Evidence Supporting the Conclusion:**
+
+The evaluation across 18 datasets and multiple retrieval architectures showed differences in retrieval performance across domains. This demonstrated that a model performing well on one dataset may not generalize equally well to other domains.
 
 ### 2. Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks
 
-- **Document:** RAG_Research_Paper.pdf
-- **Objective:** To introduce Retrieval-Augmented Generation, which combines a retriever with a language generator.
-- **Focus:** External knowledge retrieval and context-based text generation.
-- **Key takeaway:** Retrieved external documents can provide additional knowledge to a language model when generating answers.
+**Authors:** Patrick Lewis and colleagues.
 
-### Document Comparison
+**Research Paper:** https://arxiv.org/abs/2005.11401
 
-BEIR focuses on evaluating information retrieval systems across different datasets and tasks. RAG focuses on combining document retrieval with language generation to answer knowledge-intensive questions.
+**Objective:**
 
-In this project, the BEIR paper provides information about retrieval evaluation, while the RAG paper explains the retrieval-augmented generation methodology used in the application.
+The main objective is to improve language generation for knowledge-intensive tasks by combining a pre-trained language model with an external information retrieval system. This helps the model access relevant information instead of depending only on knowledge stored in its parameters.
+
+**Methodology:**
+
+- Combined parametric memory (a pre-trained sequence-to-sequence language model) with non-parametric memory (an external document index).
+- Used a neural retriever to retrieve relevant Wikipedia passages.
+- Used a BART-based sequence-to-sequence generator.
+- Introduced two approaches:
+  - RAG-Sequence: Uses the same retrieved passages for generating the complete answer.
+  - RAG-Token: Can use different retrieved passages for generating different tokens.
+- Evaluated the models on knowledge-intensive NLP tasks, including open-domain question answering.
+
+**Key Parameters and Setup:**
+
+- Knowledge source: Wikipedia
+- Retriever: Dense Passage Retrieval (DPR)
+- Generator: BART
+- Retrieval index: Dense vector index of Wikipedia passages
+- RAG variants: RAG-Sequence and RAG-Token
+- Evaluation: Knowledge-intensive NLP tasks.
+
+**Authors' Conclusions:**
+
+The authors concluded that retrieval-augmented generation can improve factual accuracy and specificity compared with generation models that rely only on their internal knowledge. Their experiments also demonstrated strong results on three open-domain question-answering tasks.
+
+**Evidence Supporting the Conclusion:**
+
+The experimental results showed that RAG models outperformed parametric-only sequence-to-sequence models on three open-domain QA benchmarks. The generated answers were also found to be more specific, diverse, and factual.
+
+## Document Comparison
+
+| Aspect | BEIR Paper | RAG Paper |
+|---|---|---|
+| Main Focus | Evaluating retrieval systems | Improving knowledge-based text generation |
+| Main Objective | Zero-shot retrieval evaluation | Retrieval-augmented generation |
+| Approach | Benchmarking multiple retrieval architectures | Combining retrieval and generation |
+| Retrieval | Different IR systems | Dense Passage Retrieval |
+| Main Contribution | Diverse retrieval benchmark | RAG-Sequence and RAG-Token |
+| Application | Information retrieval evaluation | Question answering and NLP generation |
+
+**Comparison Summary:**
+
+The BEIR paper focuses on evaluating how effectively information retrieval systems find relevant documents across different domains. The RAG paper focuses on using retrieved documents to generate informative and factual answers. Both papers demonstrate the importance of effective information retrieval for knowledge-intensive applications.
+
 
 
 ## System Architecture
@@ -224,6 +289,67 @@ Enter a question about the research papers.
 
 Type `exit` to close the application.
 
+### 8. Run the Streamlit Web Application
+
+Start the Streamlit application:
+
+```bash
+streamlit run app.py
+```
+
+Open the application in your browser:
+
+```text
+http://localhost:8501
+```
+
+Users can ask questions about the pre-indexed research documents and view generated answers with source references.
+
+### 9. Run the FastAPI Backend
+
+Start the FastAPI server using Uvicorn:
+
+```bash
+uvicorn api:app --reload
+```
+
+Open the interactive Swagger API documentation:
+
+```text
+http://localhost:8000/docs
+```
+
+**Available API Endpoints**
+
+| Method | Endpoint | Purpose |
+|---|---|---|
+| GET | `/` | Check API status |
+| POST | `/ask` | Submit a question and retrieve an answer with source references |
+
+**Example API Request**
+
+```json
+{
+  "question": "What is the main objective of the BEIR benchmark?"
+}
+```
+
+The API returns the question, generated answer, source document names, page numbers, and similarity scores.
+
+The API also handles unsupported questions by returning a safe response when relevant information is unavailable.
+
+### 10. Run Evaluation
+
+```bash
+python src/evaluate.py
+```
+
+Evaluation results are saved in:
+
+```text
+evaluation/evaluation_results.json
+```
+
 ### 8. Run Evaluation
 
 ```bash
@@ -304,16 +430,20 @@ In this project, we use 500-word chunks with a 100-word overlap, normalized embe
 These preprocessing and retrieval techniques help a lightweight model focus on relevant information, reduce unnecessary context, and produce more reliable document-grounded answers.
 
 
-## Project Structure
 
-```text
+Project Structure
+
 Technical-Document-QA-System-using-RAG/
+│
+├── app.py
+├── api.py
 │
 ├── data/
 │   ├── raw/
 │   │   └── documents/
 │   │       ├── BEIR_Research_Paper.pdf
 │   │       └── RAG_Research_Paper.pdf
+│   │
 │   └── processed/
 │       ├── extracted_documents.jsonl
 │       ├── chunks.jsonl
@@ -329,7 +459,8 @@ Technical-Document-QA-System-using-RAG/
 │   ├── retrieval.py
 │   ├── generation.py
 │   ├── rag_pipeline.py
-│   └── evaluate.py
+│   ├── evaluate.py
+│   └── upload_processing.py
 │
 ├── evaluation/
 │   ├── evaluation_questions.json
@@ -342,7 +473,7 @@ Technical-Document-QA-System-using-RAG/
 ├── requirements.txt
 ├── .gitignore
 └── README.md
-```
+
 
 *Note: Processed files and the FAISS index are generated locally by running the build commands.*
 

@@ -18,7 +18,11 @@ def run_rag_pipeline(question, model, index, metadata):
     )
 
     if not retrieved_chunks:
-        return None, []
+        return (
+            "I cannot find enough information in the provided documents.",
+            []
+        )
+    
 
     best_score = retrieved_chunks[0]["score"]
 
@@ -26,7 +30,10 @@ def run_rag_pipeline(question, model, index, metadata):
 
     if best_score < SIMILARITY_THRESHOLD:
         print("\nNo sufficiently relevant information found.")
-        return None, []
+        return (
+            "I cannot find enough information in the provided documents.",
+            []
+        )
 
     answer = generate_answer(question, retrieved_chunks)
     return answer, retrieved_chunks
