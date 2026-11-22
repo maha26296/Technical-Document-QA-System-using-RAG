@@ -286,7 +286,7 @@ ollama pull qwen2.5:1.5b
 
 Ensure Ollama is running before starting answer generation.
 
-### 7. Run the Application
+### 7. Run the CLI Application
 
 ```bash
 python src/rag_pipeline.py
@@ -297,8 +297,6 @@ Enter a question about the research papers.
 Type `exit` to close the application.
 
 ### 8. Run the Streamlit Web Application
-
-Start the Streamlit application:
 
 ```bash
 streamlit run app.py
@@ -357,17 +355,6 @@ Evaluation results are saved in:
 evaluation/evaluation_results.json
 ```
 
-### 8. Run Evaluation
-
-```bash
-python src/evaluate.py
-```
-
-Evaluation results are saved in:
-
-```text
-evaluation/evaluation_results.json
-```
 
 
 ## Evaluation
@@ -391,6 +378,27 @@ The system was tested using five manually selected questions.
 - Unsupported questions: 1
 - Supported questions generated answers: 4
 - Unsupported question rejected: 1
+
+
+### Retrieval Evaluation Results
+
+The following similarity scores were obtained during the five test cases:
+
+| Test Case | Best Similarity Score | Result |
+|---|---:|---|
+| BEIR benchmark objective | 0.5377 | Supported |
+| Zero-shot evaluation | 0.5230 | Supported |
+| RAG objective | 0.6156 | Supported |
+| RAG document usage | 0.6356 | Supported |
+| Capital of Japan | 0.0757 | Rejected |
+
+**Evaluation Observations:**
+
+- All four supported questions achieved similarity scores above the configured threshold of 0.30.
+- The unsupported question achieved a score of 0.0757 and was rejected.
+- The highest similarity score was 0.6356 for the RAG document usage question.
+- These scores represent retrieval similarity, not answer accuracy or confidence.
+
 
 ### Hallucination Handling
 
