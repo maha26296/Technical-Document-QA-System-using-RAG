@@ -1,0 +1,29 @@
+{
+    "evaluation_questions": [
+        {
+            "id": 1,
+            "type": "supported",
+            "question": "What is the main objective of the BEIR benchmark?"
+        },
+        {
+            "id": 2,
+            "type": "supported",
+            "question": "What does zero-shot evaluation mean in information retrieval?"
+        },
+        {
+            "id": 3,
+            "type": "supported",
+            "question": "What is the main objective of Retrieval-Augmented Generation (RAG)?"
+        },
+        {
+            "id": 4,
+            "type": "supported",
+            "question": "How does RAG use retrieved documents to generate answers?"
+        },
+        {
+            "id": 5,
+            "type": "unsupported",
+            "question": "What is the capital of Japan?"
+        }
+    ]
+}

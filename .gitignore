@@ -1,0 +1,27 @@
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+.venv/
+venv/
+
+# IDE settings
+.vscode/
+
+# Model and temporary files
+*.log
+.DS_Store
+
+# Environment secrets
+.env
+
+# Large generated vector files
+vector_db/
+data/processed/
+
+# Downloaded benchmark dataset
+data/raw/scifact/
+
+# Local model files
+models/

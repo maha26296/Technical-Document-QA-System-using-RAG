@@ -1,0 +1,151 @@
+[
+    {
+        "id": 1,
+        "question": "What is the main objective of the BEIR benchmark?",
+        "type": "supported",
+        "similarity_score": 0.5376607179641724,
+        "status": "Answer Generated",
+        "answer": "The main objective of the BEIR benchmark is to provide a comprehensive and diverse evaluation benchmark for information retrieval tasks. This is achieved by selecting a wide range of tasks and datasets from various domains, including broad tasks like News and Wikipedia, and highly specialized tasks like scientific publications in specific fields. The benchmark aims to evaluate the zero-shot capabilities of retrieval systems by using zero-shot datasets, which are not annotated with relevance scores. The selection of tasks and datasets is motivated by the need for a diverse and fair evaluation, considering factors such as task difficulty, domain diversity, and the presence of annotation biases.",
+        "sources": [
+            {
+                "document": "BEIR_Research_Paper.pdf",
+                "page": 3,
+                "score": 0.5376607179641724
+            },
+            {
+                "document": "BEIR_Research_Paper.pdf",
+                "page": 17,
+                "score": 0.4605826437473297
+            },
+            {
+                "document": "BEIR_Research_Paper.pdf",
+                "page": 4,
+                "score": 0.41759276390075684
+            },
+            {
+                "document": "BEIR_Research_Paper.pdf",
+                "page": 8,
+                "score": 0.37104934453964233
+            },
+            {
+                "document": "BEIR_Research_Paper.pdf",
+                "page": 9,
+                "score": 0.36930567026138306
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "question": "What does zero-shot evaluation mean in information retrieval?",
+        "type": "supported",
+        "similarity_score": 0.523013710975647,
+        "status": "Answer Generated",
+        "answer": "Zero-shot evaluation in information retrieval refers to the process of assessing the performance of retrieval models without the need for any training data. It involves evaluating models on datasets that are completely different from the training data used to train the models, thus providing insights into how well the models generalize to new, unseen scenarios.",
+        "sources": [
+            {
+                "document": "BEIR_Research_Paper.pdf",
+                "page": 9,
+                "score": 0.523013710975647
+            },
+            {
+                "document": "BEIR_Research_Paper.pdf",
+                "page": 3,
+                "score": 0.4741957485675812
+            },
+            {
+                "document": "BEIR_Research_Paper.pdf",
+                "page": 2,
+                "score": 0.45195746421813965
+            },
+            {
+                "document": "BEIR_Research_Paper.pdf",
+                "page": 4,
+                "score": 0.45182210206985474
+            },
+            {
+                "document": "BEIR_Research_Paper.pdf",
+                "page": 1,
+                "score": 0.4487752616405487
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "question": "What is the main objective of Retrieval-Augmented Generation (RAG)?",
+        "type": "supported",
+        "similarity_score": 0.6155970096588135,
+        "status": "Answer Generated",
+        "answer": "The main objective of Retrieval-Augmented Generation (RAG) is to improve the performance of generation models by incorporating retrieval mechanisms. Specifically, RAG models learn to retrieve relevant information for the task, which enhances their factual and specific generation capabilities. This approach allows RAG models to achieve state-of-the-art results on open-domain question answering tasks, as demonstrated in the provided context.",
+        "sources": [
+            {
+                "document": "RAG_Research_Paper.pdf",
+                "page": 7,
+                "score": 0.6155970096588135
+            },
+            {
+                "document": "RAG_Research_Paper.pdf",
+                "page": 9,
+                "score": 0.5308275818824768
+            },
+            {
+                "document": "RAG_Research_Paper.pdf",
+                "page": 8,
+                "score": 0.5003048777580261
+            },
+            {
+                "document": "RAG_Research_Paper.pdf",
+                "page": 17,
+                "score": 0.476188063621521
+            },
+            {
+                "document": "RAG_Research_Paper.pdf",
+                "page": 5,
+                "score": 0.4411299228668213
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "question": "How does RAG use retrieved documents to generate answers?",
+        "type": "supported",
+        "similarity_score": 0.6356261968612671,
+        "status": "Answer Generated",
+        "answer": "RAG uses retrieved documents to generate answers by leveraging the information present in the documents that are selected for retrieval. Specifically, it aggregates content from multiple pieces of retrieved content rather than relying solely on a single retrieved item. This approach allows RAG to provide more comprehensive and factually accurate answers compared to purely parametric models like BART. By combining evidence documents, RAG can synthesize information from different sources, enhancing the generative quality of its answers.",
+        "sources": [
+            {
+                "document": "RAG_Research_Paper.pdf",
+                "page": 7,
+                "score": 0.6356261968612671
+            },
+            {
+                "document": "RAG_Research_Paper.pdf",
+                "page": 17,
+                "score": 0.5894713997840881
+            },
+            {
+                "document": "RAG_Research_Paper.pdf",
+                "page": 8,
+                "score": 0.5603343844413757
+            },
+            {
+                "document": "RAG_Research_Paper.pdf",
+                "page": 9,
+                "score": 0.5284733176231384
+            },
+            {
+                "document": "RAG_Research_Paper.pdf",
+                "page": 4,
+                "score": 0.5242947936058044
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "question": "What is the capital of Japan?",
+        "type": "unsupported",
+        "similarity_score": 0.07573768496513367,
+        "status": "Rejected - Low Relevance",
+        "answer": "I cannot find enough information in the provided documents.",
+        "sources": []
+    }
+]

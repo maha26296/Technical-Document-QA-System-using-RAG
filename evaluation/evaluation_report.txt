@@ -1,0 +1,53 @@
+TECHNICAL DOCUMENT QUESTION-ANSWERING SYSTEM
+EVALUATION REPORT
+
+1. PROJECT OVERVIEW
+This project implements a Retrieval-Augmented Generation (RAG) system that answers questions using technical PDF documents. It uses Sentence Transformers for embeddings, FAISS for vector search, and Qwen 2.5 (1.5B) through Ollama for answer generation.
+
+2. EVALUATION SETUP
+- Total evaluation questions: 5
+- Supported questions: 4
+- Unsupported questions: 1
+- Embedding model: all-MiniLM-L6-v2
+- Vector database: FAISS
+- LLM: Qwen 2.5 (1.5B)
+- Retrieval method: Cosine similarity using normalized embeddings
+- Top-K retrieved chunks: 5
+- Similarity threshold: 0.30
+
+3. RETRIEVAL QUALITY
+All four supported test questions produced top similarity scores above the configured threshold:
+- BEIR benchmark objective: 0.5377
+- Zero-shot evaluation: 0.5230
+- RAG objective: 0.6156
+- RAG document usage: 0.6356
+
+The unsupported question about the capital of Japan received a similarity score of 0.0757 and was rejected.
+
+These results demonstrate that the configured threshold separates the five selected test examples. However, this is a small functional test and does not establish general retrieval precision or recall.
+
+4. ANSWER QUALITY
+The system generated answers for all four supported questions using retrieved document context. The prompt was improved to encourage concise, complete, evidence-based answers.
+
+Manual verification of every generated claim against the source documents is still required. Therefore, answer correctness is not considered fully established by this test alone.
+
+5. HALLUCINATION HANDLING
+An unsupported question was tested:
+"What is the capital of Japan?"
+
+The system returned:
+"I cannot find enough information in the provided documents."
+
+The similarity threshold prevents low-relevance queries from reaching the LLM. This reduces the risk of unsupported answers but cannot guarantee that every accepted answer is free from hallucinations.
+
+6. LIMITATIONS
+- Evaluation currently uses only five manually selected questions.
+- Similarity threshold is based on a small sample and requires further calibration.
+- PDF text extraction may contain formatting or character-encoding errors.
+- The lightweight LLM may occasionally produce incomplete or unsupported statements.
+- Formal retrieval metrics such as Precision@K and Recall@K have not yet been calculated.
+
+7. CONCLUSION
+The RAG application successfully demonstrates PDF ingestion, text extraction, chunking, embedding generation, FAISS-based semantic retrieval, local LLM answer generation, and source reference display.
+
+The initial functional tests show that the system can answer selected document-based questions and reject a tested unsupported question. Further testing with a larger evaluation dataset is recommended.
