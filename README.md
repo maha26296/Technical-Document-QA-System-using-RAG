@@ -41,13 +41,17 @@ The main objective of BEIR is to provide a common benchmark for evaluating infor
 - Compared lexical, sparse, dense, late-interaction, and re-ranking approaches.
 - Studied how well retrieval models generalize across different domains.
 
+
 **Key Parameters and Setup:**
 
 - Benchmark datasets: 18
 - Retrieval tasks: 9
 - Retrieval systems: 10
+- Evaluation metric: nDCG@10
+- Neural model input limit: First 512 word pieces
 - Evaluation approach: Zero-shot evaluation
-- Training reference dataset: MS MARCO for several retrieval models.
+- BM25: Used as a strong lexical retrieval baseline
+
 
 **Authors' Conclusions:**
 
@@ -77,14 +81,17 @@ The main objective is to improve language generation for knowledge-intensive tas
   - RAG-Token: Can use different retrieved passages for generating different tokens.
 - Evaluated the models on knowledge-intensive NLP tasks, including open-domain question answering.
 
+
 **Key Parameters and Setup:**
 
-- Knowledge source: Wikipedia
+- Knowledge source: December 2018 Wikipedia dump
+- Number of passages: Approximately 21 million
+- Passage size: 100 words
 - Retriever: Dense Passage Retrieval (DPR)
-- Generator: BART
-- Retrieval index: Dense vector index of Wikipedia passages
+- Generator: BART-large (400 million parameters)
+- Retrieval index: FAISS with an HNSW approximation
+- Training retrieval depth: Top-5 and Top-10 passages
 - RAG variants: RAG-Sequence and RAG-Token
-- Evaluation: Knowledge-intensive NLP tasks.
 
 **Authors' Conclusions:**
 
